@@ -1,0 +1,11 @@
+// Inject only this repository's synthetic tests into an existing Framework
+// checkout. No Framework source/build files are edited and no APK is installed.
+def bundleRoot = System.getProperty('mipush.configRepository')
+if (!bundleRoot) throw new GradleException('Pass -Dmipush.configRepository=<absolute config repository path>')
+gradle.projectsEvaluated {
+    def push = gradle.rootProject.project(':push')
+    push.android.sourceSets.test.java.srcDir(new File(bundleRoot, 'tests/framework'))
+    push.tasks.withType(Test).configureEach {
+        systemProperty 'mipush.configDirectory', new File(bundleRoot, 'configs').absolutePath
+    }
+}

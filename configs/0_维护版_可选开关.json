@@ -1,0 +1,102 @@
+{
+  "version": "0.1.0",
+  "description": "冰梦配置维护版：(?!) 表示关闭；需要时将对应 packageName 改为精确的应用包名正则。",
+  "configs": {
+    "开关-同标题会话": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-过滤运营消息": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-后台唤醒应用": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-只显示一条消息": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-直接打开意图": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-QQ渠道复用": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-QQ全体消息过滤": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-QQ昵称简化": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-QQ意图重整": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-来电自动打开": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-关键词亮屏": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ],
+    "开关-全局同应用成组": [
+      {
+        "match": {
+          "packageName": "(?!)"
+        },
+        "stop": false
+      }
+    ]
+  }
+}

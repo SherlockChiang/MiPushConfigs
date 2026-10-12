@@ -1,0 +1,10 @@
+.build/
+dist/
+*.apk
+*.jks
+*.db
+*.db-*
+*.log
+.DS_Store
+Thumbs.db
+node_modules/

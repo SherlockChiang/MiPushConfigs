@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "configs": {
+    "^": [
+      [
+        "cond",
+        [
+          "开关-全局同应用成组",
+          {
+            "newMetaInfo": {
+              "extra": {
+                "notification_group": "666"
+              }
+            },
+            "stop": false
+          }
+        ]
+      ]
+    ]
+  }
+}

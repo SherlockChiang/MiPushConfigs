@@ -1,0 +1,191 @@
+{
+  "version": "0.1.0",
+  "description": "缺失依赖的维护版实现；全局白名单、QA渠道和原生排版参考 NihilityT/MiPushConfigurations；昵称与全体过滤为本仓库补充实现。",
+  "configs": {
+    "$-将标题相同的通知视为同一会话": [
+      [
+        "cond",
+        [
+          "开关-同标题会话",
+          "将标题相同的通知视为同一会话"
+        ]
+      ]
+    ],
+    "$-干掉运营消息": [
+      [
+        "cond",
+        [
+          "开关-过滤运营消息",
+          "干掉运营消息"
+        ]
+      ]
+    ],
+    "$-收到消息后台唤醒应用": [
+      [
+        "cond",
+        [
+          "开关-后台唤醒应用",
+          {
+            "newMetaInfo": {
+              "extra": {
+                "__awake": "true"
+              }
+            },
+            "stop": false
+          }
+        ]
+      ]
+    ],
+    "$-只显示一条消息": [
+      [
+        "cond",
+        [
+          "开关-只显示一条消息",
+          {
+            "match": {
+              "packageName": "(?<package>.+)"
+            },
+            "newMetaInfo": {
+              "notifyId": [
+                "hash",
+                [
+                  "$",
+                  "package"
+                ]
+              ]
+            },
+            "stop": false
+          }
+        ]
+      ]
+    ],
+    "$-直接打开意图": [
+      [
+        "cond",
+        [
+          "开关-直接打开意图",
+          "直接打开意图"
+        ]
+      ]
+    ],
+    "QQ-复用QA通知渠道": [
+      [
+        "cond",
+        [
+          "开关-QQ渠道复用",
+          "QQ-复用QA通知渠道-规则"
+        ]
+      ]
+    ],
+    "QQ-复用QA通知渠道-规则": [
+      {
+        "metaInfo": {
+          "extra": {
+            "channel_id": "^contact_chat$"
+          }
+        },
+        "newMetaInfo": {
+          "extra": {
+            "__mi_push_borrow_channel_id": "QQ_Friend"
+          }
+        },
+        "stop": false
+      },
+      {
+        "metaInfo": {
+          "extra": {
+            "channel_id": "^group_chat$"
+          }
+        },
+        "newMetaInfo": {
+          "extra": {
+            "__mi_push_borrow_channel_id": "QQ_Group"
+          }
+        },
+        "stop": false
+      },
+      {
+        "metaInfo": {
+          "extra": {
+            "channel_id": "^speacial_follow$"
+          }
+        },
+        "newMetaInfo": {
+          "extra": {
+            "__mi_push_borrow_channel_id": "QQ_Friend_Special"
+          }
+        },
+        "stop": false
+      }
+    ],
+    "QQ-屏蔽全体消息": [
+      [
+        "cond",
+        [
+          "开关-QQ全体消息过滤",
+          {
+            "metaInfo": {
+              "description": "@全体成员",
+              "extra": {
+                "channel_id": "^group_chat$"
+              }
+            },
+            "operation": "ignore",
+            "stop": false
+          }
+        ]
+      ]
+    ],
+    "含间隔符的群昵称提取首词": [
+      [
+        "cond",
+        [
+          "开关-QQ昵称简化",
+          {
+            "metaInfo": {
+              "extra": {
+                "__mipush_tag_char_type": "^group$",
+                "__mi_push_conversation_sender": "^(?<first>[^|｜·]+)[|｜·].*$"
+              }
+            },
+            "newMetaInfo": {
+              "extra": {
+                "__mi_push_conversation_sender": [
+                  "replace",
+                  [
+                    "$",
+                    "first"
+                  ],
+                  "^\\s+|\\s+$",
+                  ""
+                ]
+              }
+            },
+            "stop": false
+          }
+        ]
+      ]
+    ],
+    "群消息整形-原生通知样式": [
+      {
+        "metaInfo": {
+          "title": "(?<title>.*)",
+          "description": "(?<name>.*?)[:：]\\s*(?<content>[\\s\\S]*)",
+          "extra": {
+            "intent_uri": "(?:^|;)S\\.jumptype=57619(?:;|$)",
+            "__mi_push_use_messaging_style": null,
+            "__mipush_tag_adjust": null
+          }
+        },
+        "newMetaInfo": {
+          "title": "${name}",
+          "description": "${content}",
+          "extra": {
+            "__mi_push_sub_text": "${title}"
+          }
+        },
+        "stop": false
+      }
+    ]
+  }
+}

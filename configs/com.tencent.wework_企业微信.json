@@ -1,0 +1,50 @@
+{
+  "version": "0.1.0",
+  "configs": {
+    "com.tencent.wework": [
+      "允许运营消息",
+      {
+        "name": "企业微信来电分类",
+        "metaInfo": {
+          "description": "邀请你进行语音通话"
+        },
+        "newMetaInfo": {
+          "extra": {
+            "channel_name": "电话消息",
+            "channel_description": null,
+            "channel_id": "voice_chat"
+          }
+        },
+        "stop": false
+      },
+      [
+        "cond",
+        [
+          "开关-来电自动打开",
+          {
+            "name": "企业微信 来电时自动唤醒和打开",
+            "metaInfo": {
+              "description": "邀请你进行语音通话"
+            },
+            "operation": "wake|open",
+            "stop": false
+          }
+        ]
+      ],
+      [
+        "cond",
+        [
+          "开关-过滤运营消息",
+          {
+            "name": "通知标题含有关键词则过滤",
+            "metaInfo": {
+              "title": "行业资讯"
+            },
+            "operation": "ignore",
+            "stop": false
+          }
+        ]
+      ]
+    ]
+  }
+}
